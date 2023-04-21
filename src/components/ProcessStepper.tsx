@@ -10,6 +10,7 @@ type ProcessStepper = {
   children: React.ReactNode;
   handleStepChange: (step: number) => void;
   handleRecycle: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  nextButtonHidden: boolean;
   nextButtonDisabled: boolean;
   recycleButtonDisabled: boolean;
 };
@@ -20,6 +21,7 @@ const ProcessStepper = ({
   children,
   handleStepChange,
   handleRecycle,
+  nextButtonHidden,
   nextButtonDisabled,
   recycleButtonDisabled,
 }: ProcessStepper) => {
@@ -88,14 +90,6 @@ const ProcessStepper = ({
           <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
           {children}
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
             <Box sx={{ flex: "1 1 auto" }} />
             {isStepOptional(activeStep) && (
               <Button
@@ -108,13 +102,15 @@ const ProcessStepper = ({
                 Recycle
               </Button>
             )}
-            <Button
-              disabled={nextButtonDisabled}
-              variant="contained"
-              onClick={handleNext}
-            >
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
-            </Button>
+            {!nextButtonHidden && (
+              <Button
+                disabled={nextButtonDisabled}
+                variant="contained"
+                onClick={handleNext}
+              >
+                {activeStep === steps.length - 1 ? "Send shipment" : "Next"}
+              </Button>
+            )}
           </Box>
         </React.Fragment>
       )}

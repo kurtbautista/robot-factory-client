@@ -27,3 +27,12 @@ export const recycle = createAsyncThunk(
     return data;
   }
 );
+
+export const createShipment = createAsyncThunk(
+  "robots/createShipment",
+  async (ids: number[], thunkAPI) => {
+    const response = await api.putShipment(ids);
+    const data = response.json();
+    return data;
+  }
+);

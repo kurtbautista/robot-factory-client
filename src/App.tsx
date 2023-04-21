@@ -63,10 +63,7 @@ function App() {
     setStep(step);
   };
 
-  console.log("@step", step);
-
   const content = (step: number) => {
-    console.log("@step", step);
     switch (step) {
       case 0:
         return <Robots />;
@@ -107,6 +104,7 @@ function App() {
           nextButtonDisabled={
             nextButtonDisabled || (step === 1 && !recycleButtonDisabled)
           }
+          nextButtonHidden={step === 2}
           recycleButtonDisabled={recycleButtonDisabled}
         />
       </Box>

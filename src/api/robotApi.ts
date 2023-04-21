@@ -33,3 +33,19 @@ export const postRecycle = async (ids: number[]) => {
   });
   return response;
 };
+
+export const putShipment = async (ids: number[]) => {
+  const response = await fetch(
+    `http://localhost:3100/robots/shipments/create`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        shipments: ids,
+      }),
+    }
+  );
+  return response;
+};
