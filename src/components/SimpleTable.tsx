@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   Table,
   TableBody,
@@ -20,19 +21,26 @@ const SimpleTable = ({ header, data }: TableProps) => {
         <TableHead>
           <TableRow>
             {header.map((item, index) => (
-              <TableCell key={index}>{item.label}</TableCell>
+              <TableCell key={index} {...item.headerProps}>
+                {item.label}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {data?.map((row: any) => (
+          {data?.map((row: any, index) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              {Object.entries(row).map(([key, value]: any) => (
-                <TableCell key={key} component="th" scope="row">
-                  {value}
+              {header.map((item, index) => (
+                <TableCell
+                  key={index}
+                  component="th"
+                  scope="row"
+                  {...item.dataProps}
+                >
+                  {row[item.name]}
                 </TableCell>
               ))}
             </TableRow>
@@ -43,4 +51,4 @@ const SimpleTable = ({ header, data }: TableProps) => {
   );
 };
 
-export default SimpleTable;
+export default memo(SimpleTable);
